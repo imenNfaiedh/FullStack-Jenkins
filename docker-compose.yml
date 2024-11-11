@@ -1,10 +1,23 @@
 version: '3.8'
+
 services:
-  app:
-    build: . #Indique que l'image Docker sera construite à partir du Dockerfile présent dans le répertoire courant.
+ # Service pour le backend Spring Boot
+  backend:
+    build:
+      context: ./tp4jenkins
     ports:
-      - "8086:8086" # Lier le port 8086 de l'application au port 8086 de l'hôte
-    restart: always  
+      - "8082:8082"   # Redirige le port 8082 du conteneur vers le port 8082 de votre machine
+
+      
+# Service pour le frontend Angular
+  frontend:
+    build:
+      context: ./angular-app   # Chemin vers le répertoire de votre frontend Angular
+    ports:
+      - "80:80"   # Le frontend sera accessible sur le port 80 de votre machine
+    depends_on:
+      - backend    # Assurez-vous que le frontend dépend du backend, si nécessaire
+
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/etudiant # URL de connexion à PostgreSQL
       SPRING_DATASOURCE_USERNAME: postgres
