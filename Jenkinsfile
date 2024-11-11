@@ -3,7 +3,7 @@ pipeline {
 
     tools {
 
-        nodejs 'nodejs ' // ' ' Le nom que vous avez donné à votre installation NodeJS dans Jenkins
+        nodejs 'nodejs' // ' ' Le nom que vous avez donné à votre installation NodeJS dans Jenkins
         maven 'install maven' // Define Maven tool to be used
     }
 
