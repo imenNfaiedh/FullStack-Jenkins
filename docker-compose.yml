@@ -1,1 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build: . #Indique que l'image Docker sera construite à partir du Dockerfile présent dans le répertoire courant.
+    ports:
+      - "8086:8086" # Lier le port 8086 de l'application au port 8086 de l'hôte
+    restart: always  
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/etudiant # URL de connexion à PostgreSQL
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 0000
+    depends_on:
+      - db
 
+  db:
+    image: postgres:latest # Spécifier la version de PostgreSQL ici
+    environment:
+      POSTGRES_DB: etudiant # Nom de la base de données à créer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0000
+    ports:
+      - "5432:5432" # Expose le port 5432 de PostgreSQL sur l'hôte
