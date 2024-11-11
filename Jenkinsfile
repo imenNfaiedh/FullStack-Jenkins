@@ -45,22 +45,30 @@ pipeline {
             }
         }
 
-//         stage("Build Docker Image") {
-//             steps {
-//                 // Build the Docker image using the Dockerfile
-//                 dir("${env.WORKSPACE}") {
-//                     bat "docker build -t backend ."
-//                 }
-//             }
-//         }
-//
-//         stage("Run Docker Compose") {
-//             steps {
-//                 // Run Docker Compose to start the application
-//                 dir("springboot-postgres-pipeline") {
-//                     bat "docker compose up -d"
-//                 }
-//             }
-//         }
-//     }
+        stage("Build Docker Image Backend") {
+            steps {
+                // Build the Docker image using the Dockerfile
+                dir("${env.WORKSPACE}/tp4jenkins") {
+                    bat "docker build -t backend ."
+                }
+            }
+        }
+        stage("Build Docker Image Frontend") {
+            steps {
+                // Build the Docker image using the Dockerfile
+                dir("${env.WORKSPACE}//angular-app") {
+                    bat "docker build -t backend ."
+                }
+            }
+        }
+
+        stage("Run Docker Compose") {
+            steps {
+                // Run Docker Compose to start the application
+                dir("FullStack-jenkins") {
+                    bat "docker compose up -d"
+                }
+            }
+        }
+    }
 }}
